@@ -14,7 +14,11 @@ var APP_ID = 'pPcjF7qiekVcz29h3ChSra2px1iugPUlvrLCQRBW',
 
 Parse.initialize(APP_ID,JS_KEY)
 
-console.log('hi its george')
+// <<<<<<< HEAD
+// console.log('hi its george')
+// // =======
+// console.log('hi its john')
+// >>>>>>> 259e4e8ab62ee3c860e36439afdfb1278c13fdf5
 
 window.jq = $
 
