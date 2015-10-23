@@ -73,10 +73,57 @@ img {
  * YOUR CODE HERE
  */
 
+#blogBoard{
+    height: 100%;
+    width: 100%;
+    border: 3px solid black;
 
+}
 #blogInput{
-    height: 200px;
-    width: 400px;
+    min-height: 200px;
+    width: 100%;
     border: 3px solid rebeccapurple;
 
 }
+
+#blogView{
+    
+    #header{
+        text-align: center;
+    }
+}
+
+#container{
+    position: relative;
+}
+
+#header{
+    font-family: Constantia, 
+                "Lucida Bright", 
+                Lucidabright, 
+                "Lucida Serif", 
+                Lucida, 
+                "DejaVu Serif", 
+                "Bitstream Vera Serif", 
+                "Liberation Serif", 
+                Georgia, 
+                serif;
+
+    /*margin: -50%;*/
+}
+
+#loginBox{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+
+    input{
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+
+

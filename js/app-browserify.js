@@ -21,10 +21,10 @@ window.P = Parse
 import {LoginView} from './LoginView.js'
 import {Header} from './LoginView.js'
 import {BlogView} from './BlogView.js'
-import {BlogInput} from './BlogView.js'
+// import {BlogInput} from './BlogView.js'
 
 var MiddlingModel = Backbone.Model.extend({
-	url: "https://api.parse.com/1/classes/middling",
+	url: "https://api.parse.com/1/classes/middlingPost",
 
 	parseHeaders: {
 		"X-Parse-Application-Id": APP_ID,
@@ -33,7 +33,7 @@ var MiddlingModel = Backbone.Model.extend({
 })
 
 var MiddlingCollection = Backbone.Collection.extend({
-	url: "https://api.parse.com/1/classes/middling",
+	url: "https://api.parse.com/1/classes/middlingPost",
 
 	parseHeaders: {
 		"X-Parse-Application-Id": APP_ID,
@@ -52,6 +52,26 @@ var MiddlingRouter = Backbone.Router.extend({
 	routes: {
 		"login": "showLoginView",
 		"blogView": "showBlogView"
+	},
+
+	parsePost: function(blogpost){
+		// put the message in a backbone model
+		var blogPostModel = new MiddlingModel(),
+			modelParams = {
+				blogPost: blogpost,
+				userid: Parse.User.current().id
+			}
+		console.log(modelParams)
+		blogPostModel.set(modelParams)
+
+		// add the message to the collection
+		this.mc.add(blogPostModel)
+
+		window.mc = this.mc
+		// save it to parse
+		blogPostModel.save(null,{
+			headers: blogPostModel.parseHeaders
+		})
 	},
 
 	processUserInfo: function(username,password){
@@ -89,8 +109,23 @@ var MiddlingRouter = Backbone.Router.extend({
 			)
 	},
 
-	showBlogView: function(){
-		React.render(<BlogView blogPosts={this.mc} />, document.querySelector("#container"))
+	showBlogView: function(){		
+		var paramObject = {
+				userid: Parse.User.current().id
+			},
+			stringifiedParamObject = JSON.stringify(paramObject)
+
+		this.mc.fetch({
+			headers: this.mc.parseHeaders,
+			processData: true,
+			data: {
+				where: stringifiedParamObject
+			}
+		})
+		React.render(<BlogView 
+			parsePost={this.parsePost.bind(this)}
+			blogPosts={this.mc} />, 
+			document.querySelector("#container"))
 	},
 
 	showLoginView: function(){

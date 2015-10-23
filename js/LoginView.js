@@ -3,7 +3,7 @@ var React = require('react')
 var Header = React.createClass({
 
 	render: function(){
-		return <h1>Middling</h1>
+		return <h1 id="header">Middling</h1>
 	}
 })
 
