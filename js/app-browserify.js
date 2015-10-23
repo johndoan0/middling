@@ -14,6 +14,8 @@ var APP_ID = 'pPcjF7qiekVcz29h3ChSra2px1iugPUlvrLCQRBW',
 
 Parse.initialize(APP_ID,JS_KEY)
 
+console.log('hi its george')
+
 window.jq = $
 
 window.P = Parse
